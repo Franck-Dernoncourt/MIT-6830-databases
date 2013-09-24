@@ -1,0 +1,42 @@
+\section{Introduction}
+\label{sect:introduction}
+Traditionally, large databases were mainly used for {\itshape data warehousing} i.e. accounting purposes in enterprises, supporting financial record-keeping and reporting at various levels of granularity. However, over the past decade, attitudes toward large databases have been changing quickly. Focus of large database usage has shifted from accountancy to analytics. Though the need for correct accounting and data warehousing practice still prevails, but it is becoming a shrinking fraction of the volume. The emerging trend rather focuses on supporting predictive analytics via statistical models and algorithms, for potentially noisy data.
+
+In 2008, a group of data scientists came together to describe the emerging trend in database industry and developed a number of non-trivial analytics techniques implemented as simple SQL scripts~\cite{mad09}. They called it MAD, an acronym for \emph{Magnetic} platform, \emph{Agile} design patterns for modeling, loading and iterating over data, and \emph{Deep} statistical models and algorithms for data analysis. This work eventually led to the development of a software framework - a library of analytic methods that can be installed and executed within a relational database engine that supports extensible SQL~\cite{madlib12}. This library is known as MADlib.
+
+MADlib is a free, open source library for in database analytic method available at \url{http://madlib.net}. It provides an evolving suite of SQL-based algorithms for machine learning, data-mining and statistics that run at scale within a database engine, with no need for data import/export to other tools. The goal of MADlib project is to eventually serve a role for scalable database systems that is similar to the CRAN library for R: a community repository of statistical methods supporting scalability and parallelism. At present, MADlib works with Postgres and Greenplum only and provides support for a limited set of analytic methods as shown in Table~\ref{tab:mad}. The methods are implemented mostly in python, C++ and SQL. The project is open for contributions of both new methods, and ports to additional database platforms.
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Category & Method\\
+\hline
+Supervised Learning & Linear Regression\\
+& Logistic Regression\\
+& Naive Bayes Classification\\
+& Decision Trees (C4.5)\\
+& Support Vector Machines\\
+\hline
+Unsupervised Learning & k-Means Clustering\\
+& SVD Matrix Factorization\\
+& Latent Dirichlet Allocation\\
+& Association Rules\\
+\hline
+Descriptive Statistics & Count-Min Sketch\\
+& Flajolet-Martin Sketch\\
+& Data Profiling\\
+& Quantiles\\
+\hline
+Support Modules & Sparse Vectors\\
+& Array Operations\\
+& Conjugate Gradient Optimization\\
+\hline
+\end{tabular}
+\caption{Methods provided in MADlib v0.3~\cite{madlib12}}
+\label{tab:mad}
+\end{table}
+
+In this project, we aimed at contributing to the MADlib project by implementing two different machine learning algorithms - the first one is {\itshape Genetic Programming} which is a prediction algorithm and the second one is {\itshape Adaptive Boosting} which is a popular classification algorithm. Our goal was to implement those algorithms in python and SQL, incorporate them into MADLib and analyze their performance on a number of factors.
+
+The rest of the report is organized as follows: in Section~\ref{sec:relwork} we discuss the state of the art. Section~\ref{sec:imp}, describes the background for each of the algorithms we implemented. We also discuss the MADlib implementations of the algorithms. In Section~\ref{sec:bench}, we discuss the benchmarking setup and datasets. We also discuss our findings from benchmarking the algorithms on various factors. Finally, we conclude our report in Section~\ref{sec:con}.

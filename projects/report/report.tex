@@ -1,0 +1,25 @@
+\documentclass[10pt]{article}
+
+\input{preamble}
+\input{macros}
+
+\begin{document}
+
+\title{{\small 6.830 Term Project - Spring 2013}\\Machine Learning Algorithms for In-Database Analytics}
+\author{Franck Dernoncourt \& Sumaiya Nazeen}
+\maketitle 
+
+\abstract{Our project focused on extending the functionality of MADlib. MADlib is an open source machine learning and statistics library which works with Postgres or Greenplum to provide in-database analytics. Although some machine learning algorithms have been implemented in MADlib, there is room for additional contributions. We implemented two different machine learning algorithms, symbolic regression with genetic programming and adaptive boosting for MADlib, and are in the process of contributing our code to the MADlib community codebase. We also assess the performance of our implementations and compare their performance with the same algorithms outside MADlib.}
+
+\input{introduction}
+\input{relatedWorks}
+\input{implementation} 
+\input{benchmark} 
+\input{conclusions}
+
+\bibliographystyle{plain}
+\bibliography{report}
+\pagebreak
+\input{appendices} 
+
+\end{document}

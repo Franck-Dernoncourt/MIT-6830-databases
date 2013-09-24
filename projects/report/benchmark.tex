@@ -1,0 +1,142 @@
+
+\section{Benchmark}
+\label{sec:bench}
+In this section, we show the results of the benchmarks that we performed to assess the performance of our implementations in various settings. We also discuss the implications of the results that we found.
+\subsection{Setup}
+We ran the benchmark on PostgreSQL 9.1.9 and MADlib v0.3 on a single machine on a gigabit Ethernet cluster which runs Ubuntu 12.04 LTS and has 4GB RAM, a 10GB SATA HDD and a Core 2 Duo 2.4GHz CPU. 
+
+To benchmark the performance of GP for Symbolic Regression we used a synthetic dataset containing 100,000 rows, 3 inputs and 1 output. The function we used to generate the data is $x_1*(x_2^2+x_3)$.
+
+To benchmark the performance of AdaBoost, we used BUPA liver disorder dataset which contains blood test results of 345 male individuals. This dataset is available at \url{http://www.cs.huji.ac.il/~shais/datasets/ClassificationDatasets.html}. We also used a synthetic dataset which consisted of $240000\times11$ matrix where first 10 columns are real valued random numbers and the last column indicates the class.
+
+Each run of our algorithms inside MADlib was cold start meaning that we cleared the caches and restarted the database service (PostgreSQL) for every run.
+
+
+%\subsection{Results}
+%Tables~\ref{tab:gp}, \ref{tab:adaBupa1}, \ref{tab:adaBupa2}, \ref{tab:adaSynth1} and \ref{tab:adaSynth2} in Appendix A summarize our benchmark results. Table~\ref{tab:gp} shows <Filled by Franck>. In Table~\ref{tab:adaBupa1}, we record the runtimes of row-by-row execution, batched execution and all-in-memory execution of AdaBoost inside MADlib. In Table~\ref{tab:adaBupa2}, we record the runtimes of the same algorithm when it reads data from a file or from PostgreSQL database outside MADlib or loads data into memory from Postgres residing inside MADlib. In all cases we varied the number of iterations parameter. Table~\ref{tab:adaSynth1} shows the runtimes and Table~\ref{tab:adaSynth2} shows the memory usage of row-by-row execution, batched execution and all-in-memory execution of AdaBoost when it is run on a synthetic dataset of varying size.    
+
+%As we can see from the tables, the runtime of both of the algorithms increases as we increase the number of independent variables. Running the algorithms using MADlib takes more time than bypassing MADlib altogether when data can be fit into memory. Running the algorithms using MADlib is advantageous when the dataset cannot be fit into memory. Batched execution is more efficient in terms of run time than row by row execution in terms of run time. It is more efficient than reading the whole dataset into memory in terms of memory usage.
+
+\subsection{Analysis of Results}
+Our benchmarking results are tabulated in Appendix A. Here, we discuss our understanding of the findings.
+
+\subsubsection*{Effect of varying independent variables on runtime and memory usage.}
+The first focus of our analysis was the effect of the parameters of the symbolic regression and of AdaBoost on runtime and memory usage. Figure \ref{fig:gp-inside-vs-outside} shows that when we increase the value of our parameters, it increases the runtime proportionally as expected. By the same token,  increasing the size of the data set cause PostgreSQL to use a higher amount of memory (Figure~\ref{fig:adamem} all-in-memory execution).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth,height=180px]{gp-inside-vs-outside.png}
+\caption{Runtimes of symbolic regression inside and outside MADlib.}
+\label{fig:gp-inside-vs-outside}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth,height=180px]{ada1.png}
+\caption{Runtimes of AdaBoost algorithm inside and outside MADlib.}
+\label{fig:adainout}
+\end{figure}
+
+\subsubsection*{Performance inside and outside MADlib}
+Figure \ref{fig:gp-inside-vs-outside} also compares the runtime between different execution environments: within MADlib, outside MADlib reading from a file and outside MADlib reading from the PostgreSQL database. The code used in all the cases was strictly identical in order to ensure a fair comparison between execution environments. Also, all the data was loaded in memory just before the function call.
+
+~~\\
+First of all, in the case of the dataset that we used to perform symbolic regression, which contains 100,000 rows and of size 2686 KB, on average reading from a file takes 230 ms whereas it takes 510 ms reading from the PostgreSQL database. It takes 12.14 ms on average to read the BUPA dataset ($345\times7$) from file where reading from PostgreSQL takes 12.68 ms.
+
+~~\\
+The most intriguing result is the runtime within MADlib, which is significantly slower than the runtime outside MADlib. This result cannot be explained by the fact that querying the database makes running within MADlib slower since running outside MADlib reading from the PostgreSQL doesn't have the issue, and the difference of runtime increases when the number of iterations increases, which means the reason isn't a fixed cost.
+
+~~\\
+To investigate this difference of runtime we bypassed MADlib and created PL/Python test case that narrows down the issue:
+
+\begin{verbatim}
+CREATE FUNCTION testcase (b integer)
+  RETURNS float
+AS $$
+  import time
+  start = time.time()
+  a = 0
+  for i in range(b):
+    for ii in range(b):
+      a = (((i+ii)%100)*149819874987)
+  end = time.time()
+  plpy.info("Time elapsed in Python: " + str((end - start)*1000) + ' ms')
+  return a
+$$ LANGUAGE plpythonu;
+\end{verbatim}
+
+We compared the latter code with the following identical Python code:
+\begin{verbatim}
+import time
+import sys
+
+def testcase (b):     
+    a = 0
+    for i in range(b):
+        for ii in range(b):
+            a = (((i+ii)%100)*149819874987) # keeping Python busy
+    return a
+
+def main():    
+    numIterations = int(sys.argv[1])        
+    start = time.time()
+    print testcase(numIterations)
+    end = time.time()
+    print "Time elapsed in Python:"
+    print str((end - start)*1000) + ' ms'        
+
+if __name__ == "__main__":
+    main()
+\end{verbatim}
+
+~~\\
+On our benchmark server, calling the PostgreSQL PL/Python function using \textit{select * from testcase(20000);}, it takes on average 65 seconds, while when we call the usual Python script with 20000 as argument too it takes an average 48 seconds. The averages were computed running the queries and scripts 10 times. This result means that for some reason the CPython that is embedded in PostgreSQL 9.1 is slower than the Python 2.7.3 we use outside PostgreSQL.
+
+~~\\
+We tested with PostgreSQL 9.2 (with Ubuntu 12.10 this time), and we still notice a runtime difference on my server (although overall 10\% faster, probably due to some new version of CPython). We also tried using plpython3u, which implements PL/Python based on the Python 3 language variant. plpythonu that we used before is equivalent to plpython2u, which implements PL/Python based on the Python 2 language variant. Using plpython3u is far slower (88 seconds), but when running the Python script using python3 it is also slower (75 seconds), although still significantly faster than plpython3u.
+
+~~\\
+TODO: try on my VM and conclude
+
+
+\subsubsection*{Performance of batched execution.}
+
+So far our modules have loaded all the data in memory, then performed the computations on them. However, in some situation we might not have enough memory to store all the data. In older to circumvent this issue our modules allow to define the amount of memory the user wants to grant to the module. To do so, our GP implementation lets the user to choose the batch size, which corresponds to the number of rows the module can put in memory and the AdaBoost implementation lets the user to choose the number of batches (dataset will be divided into the number of partitions chosen by the user). At each iteration of the algorithm, we retrieve data in batches. Since we cannot store them in memory, it means we will have in total a significant amount of read/write accesses to the database. The smaller the batch size the higher the amount of read/write queries at each iteration will be.
+
+~~\\
+Figure \ref{fig:gp-batch-histo} shows the effect of the batch size in the case of the symbolic regression. We fixed the parameters and only changed the batch size. As we can see, having a batch size of 10,000 rows or a batch size of 1,000 rows is a pretty good trade-off: for batch size = 10,000 rows, the runtime is 1.5  times bigger, and for batch size = 1,000 rows, the runtime a bit less than twice bigger. TODO: add reference to the table in the appendix. Since the memory used is proportional to the batch size, it makes using large batches look attractive. However, if we further decrease the batch size, we see that it starts having a very negative impact on the runtime. Figures \ref{fig:ada2} and \ref{fig:ada3} show similar impact on runtime due to batching when the number of iterations of AdaBoost algorithm increases.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth,height=180px]{gp-batch-histo.png}
+\caption{Runtimes of row-by-row, batched and all-in-memory execution of symbolic regression. The dataset contains 100,000 rows. Having a batch size of 10,000 rows means that at each iteration we do $100,000/10,000 = 10$ queries on the database}
+\label{fig:gp-batch-histo}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth,height=180px]{ada2.png}
+\caption{Runtimes of row-by-row, batched and all-in-memory execution of AdaBoost algorithm on BUPA liver disorder dataset.}
+\label{fig:adabatch1}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth,height=180px]{ada3.png}
+\caption{Runtimes of row-by-row, batched and all-in-memory execution of AdaBoost algorithm on synthetic dataset.}
+\label{fig:adabatch2}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth,height=180px]{ada4.png}
+\caption{Memory usage by AdaBoost algorithm on synthetic dataset.}
+\label{fig:adamem}
+\end{figure}
+
+~~\\
+Table~\ref{tab:adaSynth1} shows the runtimes and Table~\ref{tab:adaSynth2} shows the memory usage of row-by-row execution, batched execution and all-in-memory execution of AdaBoost when it is run on a synthetic dataset of varying size. We can see that, batching gives us advantage in terms of memory usage.
+
+
+
+

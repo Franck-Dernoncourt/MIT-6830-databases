@@ -1,0 +1,99 @@
+%%%%%%%%%% Start TeXmacs macros
+% macro for todo entries
+%The first argument is the name of the person who should do the specified tak. This argument is optional and defaults to ``scribe''. 
+%The second argument describes the type of the task. Tasks can be 
+%missing 
+%expand 
+%clarify 
+%reference 
+%incorrect 
+%editing 
+
+%The third argument contains the message describing what needs to be done. 
+\definecolor{CornSilk}{rgb}{1,1,.88}
+\newcommand{\todo}[3][scribe]{\textbf{\textcolor{red}{TODO: #2}} \textit{\textcolor{green}{@#1}\textcolor{blue}{ : #3}}}
+%aside note: 
+\newcommand{\sidenote}[1]{\fcolorbox{black}{CornSilk}{\parbox{6 in}{\textit{\textbf{\Large{Did You Know?}}}\newline #1}}}
+\newcommand{\nbdiscussion}[1]{\footnote{\fcolorbox{black}{CornSilk}{\parbox{6 in}{\textit{\textbf{\Large{NB Discussion}}}\newline #1}}}}
+\newcommand{\faq}[2]{\fcolorbox{black}{CornSilk}{\parbox{6 in}{\textbf{\textit{\Large{FAQ}}}\newline 
+\begin{description} 
+\item[\textbf{Q:}] #1
+\newline 
+\item[\textbf{A:}] #2
+\end{description} }}}
+\newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
+\newcommand{\tmabbr}[1]{#1}
+\newcommand{\tmem}[1]{{\em #1\/}}
+\newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
+\newcommand{\tmstrong}[1]{\textbf{#1}}
+\newcommand{\tmtextit}[1]{{\itshape{#1}}}
+\newcommand{\tmtexttt}[1]{{\ttfamily{#1}}}
+\newcommand{\getdir}{images}
+\newcommand{\keyword}[1]{\index{#1|textbf}}
+\newcommand{\mainword}[1]{\textbf{#1}}
+\newenvironment{enumeratenumeric}{\begin{enumerate}[1.] }{\end{enumerate}}
+\newenvironment{itemizedot}{\begin{itemize} \renewcommand{\labelitemi}{$\bullet$}\renewcommand{\labelitemii}{$\bullet$}\renewcommand{\labelitemiii}{$\bullet$}\renewcommand{\labelitemiv}{$\bullet$}}{\end{itemize}}
+\newenvironment{tmparsep}[1]{\begingroup\setlength{\parskip}{#1}}{\endgroup}
+
+ %%%%%%%%%% End TeXmacs macros
+
+%set the margins to a reasonable value 
+%\addtolength{\oddsidemargin}{-.75in}
+%\addtolength{\evensidemargin}{-.75in}
+%\addtolength{\textwidth}{1.5in}
+%\addtolength{\topmargin}{-.875in}
+%\addtolength{\textheight}{1.75in}
+
+\usepackage{calc}
+
+\makeatletter
+\newcommand{\DESCRIPTION@original@item}{}
+\let\DESCRIPTION@original@item\item
+\newcommand*{\DESCRIPTION@envir}{DESCRIPTION}
+\newlength{\DESCRIPTION@totalleftmargin}
+\newlength{\DESCRIPTION@linewidth}
+\newcommand{\DESCRIPTION@makelabel}[1]{\llap{#1}}%
+\newcommand{\DESCRIPTION@item}[1][]{%
+  \setlength{\@totalleftmargin}%
+       {\DESCRIPTION@totalleftmargin+\widthof{\textbf{#1 }}-\leftmargin}%
+  \setlength{\linewidth}
+       {\DESCRIPTION@linewidth-\widthof{\textbf{#1 }}+\leftmargin}%
+  \par\parshape \@ne \@totalleftmargin \linewidth
+  \DESCRIPTION@original@item[\textbf{#1}]%
+}
+\newenvironment{DESCRIPTION}
+  {\list{}{\setlength{\labelwidth}{0cm}%
+           \let\makelabel\DESCRIPTION@makelabel}%
+   \setlength{\DESCRIPTION@totalleftmargin}{\@totalleftmargin}%
+   \setlength{\DESCRIPTION@linewidth}{\linewidth}%
+   \renewcommand{\item}{\ifx\@currenvir\DESCRIPTION@envir
+                           \expandafter\DESCRIPTION@item
+                        \else
+                           \expandafter\DESCRIPTION@original@item
+                        \fi}}
+  {\endlist}
+\makeatother
+
+% Macros for proofs, theorems, etc.
+\theoremstyle{plain}% default
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{KL}{Klein’s Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
+
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+

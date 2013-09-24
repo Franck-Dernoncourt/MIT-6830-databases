@@ -1,0 +1,13 @@
+\section{Related Works}
+\label{sec:relwork}
+The space of approaches that combines analytics with data has been growing rapidly. At a high level, there are two approaches:
+\begin{enumerate}
+\item Top-down language-based approach: This approach brings a statistical language to a data processing substrate.
+\item Framework-based approach: This approach provides a framework to express statistical techniques on top of a data processing substrate. 
+\end{enumerate}
+  
+Top-down approaches begin with a high-level statistical programming language like R or Matlab to specify machine learning algorithms. These high-level algorithms are then compiled down to the data infrastructure. Examples of such approach are System ML from IBM~\cite{systemml11}, Revolution Analytics~\cite{rev} and SNOW~\cite{snow09}.
+
+Framework-based approaches provide a set of building blocks (individual machine learning algorithms) with library support for macro- and micro-programming to write the algorithms. Typically they provide a template to automate the common aspects of deploying an analytic task over a data substrate. There have been different framework based approaches for different data substrates. For example, MADlib provides a machine learning and statistics library for RDBMS~\cite{madlib12}. Apache Mahout provides an open source machine learning library for Apache Hadoop~\cite{mahout}. SciDB advocates a completely rewritten DBMS engine for numerical computation~\cite{scidb11}. GraphLab framework provides simplified support for programming parallel machine learning tasks~\cite{graph12}. Spark is a Scala-based domain-specific language (DSL) targeted at machine learning, providing access to the fault-tolerant, main-memory resilient distributed datasets~\cite{resi12}. ScalOps provides a Scala DSL for machine learning that is translated to Datalog, which is then optimized to run in parallel on the Hyracks infrastructure~\cite{hyracks11}. ScalOps bears more similarity with MADlib since it has its origins in Datalog and parallel relational algebra.
+
+We limited our focus on understanding and extending MADlib. Currently, MADlib has much room for growth in multiple dimensions. The MADlib library supports only a limited number of machine learning algorithms as shown in Table~\ref{tab:mad}. So, there is an open invitation to contribute additional statistical models and algorithmic methods, both textbook techniques and cutting-edge research. Also, there is the challenge of porting MADlib to DBMSs other than PostgreSQL and Greenplum. Since MADlib is open source, anyone can contribute to MADlib codebase following their guidelines. 

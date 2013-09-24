@@ -1,0 +1,82 @@
+\begin{thebibliography}{10}
+
+\bibitem{mahout}
+{Apache Mahout}.
+\newblock \url{http://mahout.apache.org}.
+
+\bibitem{rev}
+{Revolution Analytics}.
+\newblock \url{http://www.revolutionanalytics.com}.
+
+\bibitem{hyracks11}
+Vinayak Borkar, Michael Carey, Raman Grover, Nicola Onose, and Rares Vernica.
+\newblock {Hyracks: A flexible and extensible foundation for data-intensive
+  computing}.
+\newblock In {\em Data Engineering (ICDE), 2011 IEEE 27th International
+  Conference on}, pages 1151--1162. IEEE, 2011.
+
+\bibitem{mad09}
+Jeffrey Cohen, Brian Dolan, Mark Dunlap, Joseph~M Hellerstein, and Caleb
+  Welton.
+\newblock {MAD Skills: New Analysis Practices for Big Data}.
+\newblock {\em Proceedings of the VLDB Endowment}, 2(2):1481--1492, 2009.
+
+\bibitem{DEAPJMLR2012}
+F\'elix-Antoine Fortin, Fran\c{c}ois-Michel {De Rainville}, Marc-Andr\'e
+  Gardner, Marc Parizeau, and Christian Gagn\'e.
+\newblock {DEAP}: Evolutionary algorithms made easy.
+\newblock {\em Journal of Machine Learning Research}, 13:2171--2175, jul 2012.
+
+\bibitem{boost96}
+Yoav Freund and Robert~E Schapire.
+\newblock {Experiments with a new boosting algorithm}.
+\newblock In {\em Machine Learning International Workshop Then Conference},
+  pages 148--156. Morgan Kaufman Publishers, Inc., 1996.
+
+\bibitem{alr00}
+Jerome Friedman, Trevor Hastie, and Robert Tibshirani.
+\newblock Additive logistic regression: a statistical view of boosting.
+\newblock {\em The annals of statistics}, 28(2):337--407, 2000.
+
+\bibitem{systemml11}
+Amol Ghoting, Rajasekar Krishnamurthy, Edwin Pednault, Berthold Reinwald, Vikas
+  Sindhwani, Shirish Tatikonda, Yuanyuan Tian, and Shivakumar Vaithyanathan.
+\newblock {SystemML: Declarative machine learning on MapReduce}.
+\newblock In {\em Data Engineering (ICDE), 2011 IEEE 27th International
+  Conference on}, pages 231--242. IEEE, 2011.
+
+\bibitem{madlib12}
+Joseph~M Hellerstein, Christoper R{\'e}, Florian Schoppmann, Daisy~Zhe Wang,
+  Eugene Fratkin, Aleksander Gorajek, Kee~Siong Ng, Caleb Welton, Xixuan Feng,
+  Kun Li, et~al.
+\newblock {The MADlib analytics library: or MAD skills, the SQL}.
+\newblock {\em Proceedings of the VLDB Endowment}, 5(12):1700--1711, 2012.
+
+\bibitem{graph12}
+Yucheng Low, Danny Bickson, Joseph Gonzalez, Carlos Guestrin, Aapo Kyrola, and
+  Joseph~M Hellerstein.
+\newblock {Distributed GraphLab: A framework for machine learning and data
+  mining in the cloud}.
+\newblock {\em Proceedings of the VLDB Endowment}, 5(8):716--727, 2012.
+
+\bibitem{scidb11}
+Michael Stonebraker, Paul Brown, Alex Poliakov, and Suchi Raman.
+\newblock {The architecture of SciDB}.
+\newblock In {\em Scientific and Statistical Database Management}, pages 1--16.
+  Springer, 2011.
+
+\bibitem{snow09}
+Luke Tierney, Anthony~J Rossini, and Na~Li.
+\newblock {Snow: A parallel computing framework for the R system}.
+\newblock {\em International Journal of Parallel Programming}, 37(1):78--90,
+  2009.
+
+\bibitem{resi12}
+Matei Zaharia, Mosharaf Chowdhury, Tathagata Das, Ankur Dave, Justin Ma, Murphy
+  McCauley, Michael Franklin, Scott Shenker, and Ion Stoica.
+\newblock {Resilient distributed datasets: A fault-tolerant abstraction for
+  in-memory cluster computing}.
+\newblock In {\em Proceedings of the 9th USENIX conference on Networked Systems
+  Design and Implementation}, pages 2--2. USENIX Association, 2012.
+
+\end{thebibliography}

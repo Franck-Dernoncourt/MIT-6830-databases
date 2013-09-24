@@ -1,0 +1,470 @@
+\section*{Appendix A: Tables showing Benchmarking Results}
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{lcc}
+\end{tabular}
+\caption{GP runtimes on synthetic dataset}
+\label{tab:gp}
+\end{table}
+
+\begin{table}[!htbp]
+\small
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{NumIter} & \multicolumn{6}{|c|}{Runtimes (sec)}\\
+\cline{2-7}
+& All-in-Memory & 2 Batches & 5 Batches & 10 Batches & 50 Batches & Row-by-Row\\
+\hline
+50 &1.04 &96.72 &99.23 &149.96 &213.31 &314.75 \\
+\hline
+100 &2.09 &147.90 &236.93 &527.41 &770.55 &1215.30 \\
+\hline
+150 &2.69 &283.44 &548.98 &844.80 &1746.58 &2727.17 \\ 
+\hline
+200 &3.39 &675.45 &986.81 &1107.41 &3118.15 &4334.23 \\ 
+\hline
+250 &4.18 &1052.99 &1728.76 &2546.37 &3118.154 &6525.33 \\ 
+\hline
+300 &4.88 &1566.79 &2814.76 &3926.46 &6367.52 &9041.89 \\ 
+\hline
+350 &5.72 &2578.63 &3789.65 &5444.76 &8567.15 &11822.67 \\ 
+\hline
+400 &6.58 &4548.88 &5567.59 &9720.97 &12319.85 &16878.20 \\ 
+\hline
+450 &7.58 &7143.48 &8869.80 &12414.58 &17613.34 &24683.87 \\ 
+\hline
+500 &7.96 &9776.36 &11934.97 &16977.72 &23814.81 &30417.70 \\
+\hline
+\end{tabular}
+\caption{AdaBoost runtimes on BUPA liver disorder dataset (Row-by-Row vs. Batched vs. All-in-Memory execution).}
+\label{tab:adaBupa1}
+\end{table}
+
+\begin{table}[!htbp]
+\small
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multirow{3}{*}{NumIter}&\multicolumn{3}{|c|}{Runtimes (sec)}\\
+\cline{2-4}
+&Outside MADlib&Outside MADlib&\multirow{2}{*}{Inside MADlib}\\
+&from PostgreSQL&from File&\\
+\hline
+500&6.73 &6.37 &7.96 \\
+\hline
+1000&10.85 &12.23 &14.01 \\\hline
+1500&16.82 &18.27 &20.43 \\\hline
+2000&21.87 &24.56 &27.50 \\\hline
+2500&27.13 &30.92 &33.52 \\\hline
+3000&32.95 &38.25 &40.27 \\\hline
+3500&38.11 &43.28 &47.11 \\\hline
+4000&43.51 &50.45 &54.48 \\\hline
+4500&50.86 &57.02 &60.51 \\\hline
+5000&57.86 &62.97 &72.63 \\\hline
+7000&82.00 &88.12 &133.256 \\\hline
+10000&127.60 &124.88 &252.98 \\
+\hline
+\end{tabular}
+\caption{AdaBoost runtimes on BUPA liver disorder dataset (Inside vs. Outside MADlib).}
+\label{tab:adaBupa2}
+\end{table}
+
+\begin{table}[!htbp]
+\small
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{NumTuples} & \multicolumn{6}{|c|}{Runtimes (sec)}\\
+\cline{2-7}
+& All-in-Memory & 2 Batches & 5 Batches & 10 Batches & 50 Batches & Row-by-Row\\
+\hline
+20000&92.02 &10938.07 &11932.44 &12702.27 &14063.23 &19688.52 \\
+\hline
+30000&143.13 &14379.26 &15418.72 &16838.87 &18024.70 &25595.08 \\
+\hline
+40000&201.38 &17579.04 &19390.21 &20911.01 &22690.67 &31993.85 \\
+\hline
+50000&252.59 &23106.67 &25055.43 &26324.06 &29708.58 &41592.01 \\
+\hline
+60000&320.38 &29576.54 &32432.05 &34126.77 &38026.98 &53237.77 \\
+\hline
+\end{tabular}
+\caption{AdaBoost runtimes on synthetic dataset.}
+\label{tab:adaSynth1}
+\end{table}
+
+\begin{table}[!htbp]
+\small
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{NumTuples} & \multicolumn{6}{|c|}{Memory Usage (\%)}\\
+\cline{2-7}
+& All-in-Memory & 2 Batches & 5 Batches & 10 Batches & 50 Batches & Row-by-Row\\
+\hline
+80000& 9.0&7.8&4.1 &3.2 &2.7&2.6 \\
+\hline
+120000& 12.4&7.9 &4.2 &3.4&3.0 &2.7 \\
+\hline
+160000& 15.9&7.9 &4.2 &3.4 &3.2 &2.7 \\
+\hline
+200000& 18.1&8.0 &4.3 &3.6 &3.2 &2.6 \\
+\hline
+240000& 21.3&8.2 &4.4 &3.7 &3.4 &2.7 \\
+\hline
+\end{tabular}
+\caption{AdaBoost memory usage for synthetic dataset}
+\label{tab:adaSynth2}
+\end{table}
+
+
+\begin{table}[!htbp]
+\small
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{Pop size} & \multirow{3}{*}{\# of gen.} & \multicolumn{3}{|c|}{Runtimes (sec)}\\
+\cline{3-5}
+& &Outside MADlib&Outside MADlib&\multirow{2}{*}{Inside MADlib}\\
+& &from PostgreSQL&from File&\\
+\hline
+5 & 5 & 5.513 & 4.860 & 6.787 \\ \hline
+10& 5 & 7.166 & 6.295 & 8.560 \\\hline
+20& 5 & 13.879 & 12.484 & 17.610 \\\hline
+50& 5 & 32.568 & 30.637 & 44.261 \\\hline
+100& 5 & 65.385 & 62.013 & 88.910 \\\hline
+200& 5 & 135.105 & 128.238 & 182.672 \\\hline
+500& 5 & 300.677 & 314.149 &425.092 \\\hline
+1000& 5 & 597.274 &582.635 &810.041 \\\hline
+5& 10 & 7.888 & 7.669& 10.523 \\\hline
+5& 20 & 11.245 & 11.137 & 16.282 \\\hline
+5& 50 & 25.119 & 23.975 & 35.220 \\\hline
+5& 100 & 47.355 & 46.355 & 69.156 \\\hline
+5& 200 & 92.778 & 95.063 & 119.511 \\\hline
+5& 500 & 226.639 & 239.827 & 293.664 \\\hline
+5& 1000 & 491.201 & 489.361 & 591.823 \\\hline
+20& 20 & 44.813 & 44.813 & 56.965 \\
+\hline
+\end{tabular}
+\caption{Symbolic Regression runtimes on synthetic dataset.}
+\label{tab:GPruntimes}
+\end{table}
+
+
+\begin{table}[!htbp]
+\small
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Pop; Gen} & \multicolumn{6}{|c|}{Runtimes (sec)}\\
+\cline{2-7}
+& All-in-Memory & 10000-row batch & 1000-row batch & 100-row batch & 10-row batch & Row-by-Row \\
+\hline
+5; 5 & 6.787 & 11.012 & 14.220 &  93.387 & 845.325 &8153.139 \\
+\hline
+\end{tabular}
+\caption{Symbolic Regression runtimes on synthetic dataset. Pop stands for population size. Gen stands for number of generations.}
+\label{tab:GPbatchRunTimes}
+\end{table}
+
+
+
+\section*{Appendix B: Installing Madlib with PostgreSQL}
+The following instructions have been tested on Ubuntu 12.04 x64. They will not work with Ubuntu 12.04 x32 (MADlib does not have support for Ubuntu 32-bit). Also, MADlib doesn't work with GCC 4.7.*. Since,  Ubuntu 12.10 ships with GCC 4.7.2 it might be an issue while installing MADlib on Ubuntu 12.10.
+
+\vspace{\baselineskip}
+{\raggedleft Install PostgreSQL packages:}
+\begin{verbatim}
+$ sudo apt-get -y install \
+  postgresql-9.1 libpq-dev \
+  postgresql-server-dev-9.1 \
+  postgresql-plpython-9.1
+\end{verbatim}
+
+{\raggedleft Download MADlib from \url{http://madlib.net} and copy .tar file to server:}
+\begin{verbatim}
+$ wget https://github.com/madlib/madlib/zipball/v0.5.0
+$ unzip v0.5.0
+$ cd madlib-madlib-5fabd88
+\end{verbatim}
+
+{\raggedleft Build Madlib:}
+\begin{verbatim}
+$ sudo apt-get -y install cmake
+$ sudo apt-get -y install m4 gcc-4.6 g++-4.6 g++
+$ ./configure
+$ cd build/
+$ make
+$ make doc
+$ make install
+\end{verbatim}
+
+{\raggedleft Connect to the database:}
+\begin{verbatim}
+$ sudo su - postgres
+$ psql
+\end{verbatim}
+
+{\raggedleft Add a password to a role:}
+\begin{verbatim}
+postgres=# ALTER ROLE postgres WITH PASSWORD 'postgres';
+\end{verbatim}
+
+{\raggedleft Register Madlib with the PostgreSQL database}
+\begin{verbatim}
+$ /usr/local/madlib/bin/madpack -p postgres -c \ 
+  \$USER@\$HOST/postgres install
+\end{verbatim}
+
+{\raggedleft Test the installation by running install check procedure:}
+\begin{verbatim}
+$ /usr/local/madlib/bin/madpack -p postgres -c \
+  \$USER@\$HOST/\$DATABASE install-check
+\end{verbatim}
+
+\section*{Appendix C: Creating a module in Madlib}
+
+Create a new function testpy. We are going to create this section in any module called 'testmod'.
+
+\begin{itemize}
+  \item Add new module folder: ./src/ports/postgres/modules/testmod/
+  \item Create in this folder the following files:
+
+\begin{itemize}
+  \item \_\_init\_\_.py\_in  
+  \item testmod.py\_in
+  \item testmod.sql\_in
+\end{itemize}
+
+\item Modify ./src/config/Modules.yml and add a new line "	- name: testmod"
+  \item recompile MADlib: with any user:
+
+\begin{itemize}
+  \item ./configure
+  \item make install      \# (no need for make clean) (in the MADlib build folder)
+\end{itemize}
+  \item re-register MADlib into Postgresql (with postgres user):
+  \begin{itemize}
+  \item  /usr/local/madlib/bin/madpack -p postgres -c \$USER@\$HOST/postgres reinstall
+  \end{itemize}
+ \end{itemize}
+ 
+
+
+\section*{Appendix D: How to use Genetic Programming module in MADlib}
+\subsection*{Input}
+The input data is expected to be of the following form:
+\begin{verbatim}
+TABLE tableName (
+    x1 DOUBLE PRECISION,
+    ...
+    xN DOUBLE PRECISION,
+    y DOUBLE PRECISION
+)
+\end{verbatim}
+
+\subsection*{Usage}
+Perform Symbolic Regression using Genetic Programming:
+\begin{verbatim}
+postgres=# SELECT * FROM madlib.gp (
+               'inputTableName', 
+               '{x1, ..., xN}', '{y}', 
+                numIndividuals, 
+                numGenerations, 
+                maxDepthOfTree
+           );
+\end{verbatim}
+
+\subsection*{Example}
+This is an example showing how to perform symbolic regression using the genetic programming module in MADlib. 
+
+\vspace{\baselineskip}
+{\raggedleft Generate an artificial dataset using MATLAB that contains 100,000 rows:}
+
+\lstset{language=Matlab}
+\lstset{tabsize=4}
+\begin{lstlisting}
+x1 = 1:0.0001:(10+5000);
+x2 = 10:0.0001:(19+5000);
+x3 = 5:0.0001:(14+5000);
+a =[x1; x2; x3; x1.*(x2.^2+x3)];
+csvwrite('mock.csv', a(1:100000, :))
+\end{lstlisting}
+
+{\raggedleft Import this dataset within PostgreSQL:}
+\begin{verbatim}
+postgres=# CREATE TABLE mock (X1 real, X2 real, X3 real, Y1 real);
+postgres=# COPY mock FROM '/root/mock.csv' DELIMITERS ',' CSV;
+\end{verbatim}
+
+{\raggedleft Run the symbolic regression, with 100 individuals per population size, 20 generations, and to maximum size of the trees of 3. We take 3 attributes as input (x1, x2 and x3) and one attribute as output (y1):}
+
+\begin{verbatim}
+postgres=# SELECT * from madlib.gp('mock', '{x1, x2, x3}', '{y1}', 100, 20, 3);
+\end{verbatim}
+
+{\raggedleft The above query produces the following output:}
+\begin{verbatim}
+           individual            |      fitness
+---------------------------------+-------------------
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+ [mul, add, mul, x2, x2, x3, x1] | 0.000442927237356
+(9 rows)
+\end{verbatim}
+
+{\raggedleft Each row corresponds to one individual, i.e. one formula. In this example, all rows correspond to the formula $x_1*(x_2^2+x_3)$, which is what we wanted to find. The fitness reflects how accurate each individual is. The lowest the fitness, the most accurate the formula is.}
+
+
+\section*{Appendix E: How to use AdaBoost module in MADlib}
+\label{sec:adaapp}
+Currently our implementation supports only binary classification.
+
+\subsection*{Input}
+The {\itshape training data} as well as {\itshape test data} is expected to be of the following form:
+
+\begin{verbatim}
+TABLE tableName (
+    id INTEGER, // should be 1 indexed
+    attribute1 DOUBLE PRECISION,
+    ...
+    attributeN DOUBLE PRECISION,
+    class INTEGER // should be either 1 or -1
+)
+\end{verbatim}
+
+\subsection*{Usage}
+Perform AdaBoost classification loading the whole dataset into memory: (This type of execution is pretty fast when the dataset is small and fits into memory)
+
+\begin{verbatim}
+postgres=# SELECT * from madlib.adaboost_train_and_classify (
+               'trainingSet', 'testSet', 
+               '{attribute1, ..., attributeN}', 
+               'class', numberOfIterations, pValue
+           );
+\end{verbatim}
+
+When the dataset cannot be fit into memory, the user can use either batched or row-by-row version of AdaBoost.
+\vspace{\baselineskip}
+{\raggedleft Perform row-by-row version of AdaBoost classification:}
+
+\begin{verbatim}
+postgres=# SELECT * from madlib.adaboostRow_train_and_classify (
+               'trainingSet', 'testSet', 
+               '{attribute1, ..., attributeN}', 
+               'class', numberOfIterations, pValue
+           );
+\end{verbatim}
+
+{\raggedleft Perform batched version of AdaBoost classification:}
+
+\begin{verbatim}
+postgres=# SELECT * from madlib.adaboostBatch_train_and_classify (
+               'trainingSet', 'testSet', 
+               '{attribute1, ..., attributeN}', 
+               'class', numberOfBatches,
+                numberOfIterations, pValue
+           );
+\end{verbatim}
+
+\subsection*{Example}
+This is an over-simplified example of the in-memory execution of AdaBoost classification. Batched and row-by-row versions are similar.
+\vspace{\baselineskip}
+{\raggedleft The training and test data:}
+
+\begin{verbatim}
+postgres=# SELECT * from trainingSet;
+ id | attr1 | attr2 | attr3 | class 
+----+-------+-------+-------+--------
+  1 |    85 |    92 |    45 |     1 
+  2 |    85 |    64 |    59 |    -1 
+  3 |    86 |    54 |    33 |     1 
+  4 |    91 |    78 |    34 |     1 
+  5 |    87 |    70 |    12 |    -1 
+  6 |    98 |    55 |    13 |     1 
+(6 rows)
+
+postgres=# SELECT * from testSet;
+ id | attr1 | attr2 | attr3 | class 
+----+-------+-------+-------+--------
+  1 |    95 |    82 |    15 |    -1 
+  2 |    86 |    54 |    54 |     1 
+  3 |    88 |    64 |    43 |     1 
+  4 |    81 |    70 |    46 |     1 
+  5 |    97 |    77 |    10 |    -1 
+  6 |    88 |    65 |    12 |    -1 
+(6 rows)
+\end{verbatim}
+
+{\raggedleft Perform AdaBoost classification:}
+
+\begin{verbatim}
+postgres=# SELECT * FROM madlib.adaboost_train_and_classify (
+               'trainingSet', 'testSet', 
+               '{attr1, attr2, attr3}', 
+               'class', 50, 0.05
+           );
+\end{verbatim}
+
+{\raggedleft The above query produces the following output summary:}
+
+\begin{verbatim}
+      result_table_name      
+-----------------------------
+ adaboost_classifier_weights
+ adaboost_classified_samples
+ adaboost_confusion_matrix
+ adaboost_AUC
+(4 rows)
+\end{verbatim}
+
+{\raggedleft Check the contents of the above tables to get the classification results:}
+
+\begin{verbatim}
+postgres=# SELECT * FROM adaboost_classifier_weights;
+
+ id |     weight      
+----+-----------------
+ 0  | 0.0492970944955
+ 1  |  0.161430043833
+ 2  |  0.225351747846
+ 3  |  0.225351747846
+ 4  |  0.190980668725
+ 5  |  0.147588697256
+(6 rows)
+
+postgres=# SELECT * FROM adaboost_classified_samples;
+
+ row_id |     score      | predicted_class 
+--------+----------------+-----------------
+ 0      |  12.3265804125 |               1
+ 1      | -12.2369378612 |              -1
+ 2      |  11.9033472397 |               1
+ 3      |  11.9033472397 |               1
+ 4      |  10.7171405001 |               1
+ 5      | -12.0688375328 |              -1
+(6 rows)
+
+postgres=# SELECT * FROM adaboost_confusion_matrix;
+
+ tp | fp | fn | tn 
+----+----+----+----
+  2 |  2 |  1 |  1
+(1 row)
+
+postgres=# SELECT * FROM adaboost_AUC;
+
+      auc       
+----------------
+ 0.444444444444
+(1 row)
+
+\end{verbatim}
